@@ -1,0 +1,1 @@
+/bin/clang++-9 -g CMakeFiles/task_1.dir/main.cpp.o CMakeFiles/task_1.dir/parser.cpp.o -o task_1 

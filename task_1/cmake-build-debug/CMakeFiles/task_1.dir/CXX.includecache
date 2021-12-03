@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/orku/university/oop_prts/task_1/main.cpp
+iostream
+-
+parser.h
+/home/orku/university/oop_prts/task_1/parser.h
+
+/home/orku/university/oop_prts/task_1/parser.h
+iostream
+-
+memory
+-
+
