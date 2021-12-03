@@ -1,1 +1,0 @@
-/bin/clang++-9 -g CMakeFiles/task_2.dir/main.cpp.o -o task_2 
