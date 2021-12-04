@@ -49,6 +49,6 @@ enum PNITraxDataID {
 std::ostream& operator<<(std::ostream& out_stream, PNITraxData& data);
 
 float cast_734_32(const char* byte_str, size_t start_pos, size_t size_of_obj);
-//void get_PNITraxData_from_msg(const char* byte_str, size_t msg_len, std::shared_ptr<PNITraxData> ptr_to_data);
+void get_PNITraxData_from_msg(const char* byte_str, size_t msg_len, PNITraxData& data);
 
 #endif //TASK_1_PARSER_H
