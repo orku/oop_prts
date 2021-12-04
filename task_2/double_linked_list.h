@@ -1,125 +1,124 @@
 #ifndef TASK_2_DOUBLE_LINKED_LIST_H
 #define TASK_2_DOUBLE_LINKED_LIST_H
+#include <iostream>
 
-template<class T> class node{
+template<typename T>
+class double_linked_list;
+
+template<typename T>
+std::ostream& operator<<(std::ostream&, const double_linked_list<T>&);
+
+template<typename T>
+class node {
 public:
-    T node_data;
-    T* prev_node;
-    T* next_node;
+  T node_data;
+  node<T> *prev_node;
+  node<T> *next_node;
 
-    node(){
-        node_data;
-        prev_node = nullptr;
-        next_node = nullptr;
-    }
+  node() {
+    node_data;
+    prev_node = nullptr;
+    next_node = nullptr;
+  }
 
-    explicit node(const T& data) :node_data(data){
-        prev_node = nullptr;
-        next_node = nullptr;
-    }
+  explicit node(const T &data) : node_data(data) {
+    next_node = nullptr;
+    prev_node = nullptr;
+  }
 
-    ~node() = default;
+  ~node() = default;
 };
 
-template<class T> class double_linked_list{
+template<typename T>
+class double_linked_list {
 public:
-    double_linked_list(){
-        head_ = new node<T>();
-        tail_ = new node<T>();
-        head_->next_node = tail_;
-        head_->prev_node = nullptr;
-        tail_->next_node = nullptr;
-        tail_->prev_node = head_;
-        count_ = 0;
+  double_linked_list() {
+    head_ = nullptr;
+    tail_ = nullptr;
+    count_ = 0;
+  }
+
+  ~double_linked_list() = default;
+
+  void push_head(const T &data) {
+    auto *tmp = new node<T>(data);
+    if (!head_) {
+      head_ = tmp;
+      tail_ = tmp;
+      head_->next_node = tail_;
+      count_++;
+    } else {
+      tmp->next_node = head_;
+      head_->prev_node = tmp;
+      head_ = tmp;
+      count_++;
     }
+  }
 
-    explicit double_linked_list(const T& data){
-        head_ = new node<T>(data);
-        tail_ = new node<T>();
-        head_->next_node = tail_;
-        head_->prev_node = nullptr;
-        tail_->next_node = nullptr;
-        tail_->prev_node = head_;
-        count_ = 1;
+  void push_tail(const T &data) {
+    auto *tmp = new node<T>(data);
+    if (!tail_) {
+      head_ = tmp;
+      tail_ = tmp;
+      head_->next_node = tail_;
+      count_++;
+    } else {
+      tmp->prev_node = tail_;
+      tail_->next_node = tmp;
+      tail_ = tmp;
+      count_++;
     }
+  }
 
-    ~double_linked_list() = default;
+  T pop_tail() {
+    node<T> *tmp = tail_;
+    T ret_val = tmp->node_data;
+    tail_ = tail_->prev_node;
+    delete tmp;
+    count_--;
+    return ret_val;
+  }
 
-    void push_head(const T& data){
-        auto* tmp = new  node<T>(data);
-        tmp->next_node = head_;
-        tmp->prev_node = nullptr;
-        head_ = tmp;
-        count_++;
-    }
+  void sort() {
+    node<T> *left = head_;
+    node<T> *right = head_->next_node;
 
-    void push_tail(const T& data){
-        auto* tmp = new node<T>(data);
-        tmp->next_node = nullptr;
-        tmp->prev_node = tail_;
-        tail_ = tmp;
-        count_++;
-    }
-
-    T pop_head(){
-        node<T>* tmp = head_;
-        T ret_val = tmp->node_data;
-        head_ = head_->next_node;
-        delete tmp;
-        count_--;
-        return ret_val;
-    }
-
-    T pop_tail(){
-        node<T>* tmp = tail_;
-        T ret_val = tmp->node_data;
-        tail_ = tail_->prev_node;
-        delete tmp;
-        count_--;
-        return ret_val;
-    }
-
-    unsigned int length() const{
-        return count_;
-    }
-
-    node<T>* split(){
-        node<T>* fast = head_;
-        node<T>* slow = head_;
-        while (fast->next_node && fast->next_node->next_node){
-            fast = fast->next_node->next_node;
-            slow = slow->next_node;
+    auto *tmp = new node<T>;
+    while (left->next_node) {
+      while (right) {
+        if ((left->node_data) > (right->node_data)) {
+          tmp->node_data = left->node_data;
+          left->node_data = right->node_data;
+          right->node_data = tmp->node_data;
         }
-        node<T>* tmp = slow->next_node;
-        slow->next_node = nullptr;
-        return tmp;
+        right = right->next_node;
+      }
+      left = left->next_node;
+      right = left->next_node;
     }
-    node<T>* merge(node<T>* first, node<T>* second){
-        if(!first){
-            return second;
-        }
-        if(!second){
-            return first;
-        }
-        if (first->node_data < second->node_data){
-            first->next_node = merge(first->next_node, second);
-            first->next_node->prev_node = first;
-        }
-    }
-    void sort(){
+  }
 
-    }
+  unsigned int length() const {
+    return count_;
+  }
 
+  friend std::ostream& operator<< <>(std::ostream& ostr, const double_linked_list<T>& lst);
 private:
-    unsigned int count_ = 0;
-    node<T>* head_;
-    node<T>* tail_;
+  node<T> *head_;
+  node<T> *tail_;
+  unsigned int count_ = 0;
 };
 
-template<class T> void swap_(T& a, T& b){
-    T temp = a;
-    a = b;
-    b = temp;
+template <typename T>
+std::ostream & operator<<(std::ostream& ost, const double_linked_list<T>& lst){
+  node<T>* tmp;
+  tmp = lst.tail_;
+  while (tmp){
+    ost << tmp->node_data << "   ";
+    tmp = tmp->prev_node;
+  }
+  return ost;
 }
+
 
 #endif //TASK_2_DOUBLE_LINKED_LIST_H
