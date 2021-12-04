@@ -1,7 +1,3 @@
-//
-// Created by orku on 16.11.2021.
-//
-
 #ifndef TASK_2_DOUBLE_LINKED_LIST_H
 #define TASK_2_DOUBLE_LINKED_LIST_H
 
