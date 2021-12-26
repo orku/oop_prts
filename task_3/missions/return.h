@@ -8,10 +8,15 @@
 #include "mission.h"
 #include <sstream>
 
-class Return : public Mission{
+class Return : public Mission {
+public:
     Return();
+
     ~Return() override = default;
-    std::string mission();
+
+    std::string mission() override;
+
+    bool check() override;
 };
 
 

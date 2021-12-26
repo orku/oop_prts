@@ -34,5 +34,5 @@ std::string Dive::mission() {
 }
 
 bool Dive::check() {
-    return set_depth_ <= MAX_DEPTH && set_depth_ >= MIN_DEPTH;
+    return (set_depth_ < MAX_DEPTH) && (set_depth_ > MIN_DEPTH);
 }

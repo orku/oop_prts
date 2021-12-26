@@ -22,6 +22,8 @@ public:
     virtual bool check() = 0;
 
     virtual std::string mission() = 0;
+
+    bool is_it_return_mission = false;
 };
 
 

@@ -9,3 +9,11 @@ std::string Return::mission() {
     result << "Return mission";
     return result.str();
 }
+
+bool Return::check() {
+    return true;
+}
+
+Return::Return() {
+    is_it_return_mission = true;
+}
